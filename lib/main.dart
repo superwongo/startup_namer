@@ -34,12 +34,43 @@ class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
   final _biggerFont = const TextStyle(fontSize: 18.0);
   final _saved = Set<WordPair>();
+  void _pushSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          final tiles = _saved.map(
+            (pair) {
+              return ListTile(
+                title: Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            }
+          );
+          final divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles
+          ).toList();
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Save Suggestions'),
+            ),
+            body: ListView(children: divided),
+          );
+        }
+      )
+    );
+  }
   Widget build(BuildContext context) {
 //    final wordPair = WordPair.random();
 //    return Text(wordPair.asPascalCase);
     return Scaffold(
       appBar: AppBar(
         title: Text('Startup Name Generator'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved,),
+        ],
       ),
       body: _buildSuggestions(),
     );
