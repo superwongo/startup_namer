@@ -21,6 +21,9 @@ class MyApp extends StatelessWidget {
 //        ),
       title: 'Startup Name Generator',
       home: RandomWords(),
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey
+      ),
     );
   }
 }
@@ -68,6 +71,7 @@ class RandomWordsState extends State<RandomWords> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Startup Name Generator'),
+        centerTitle: true,
         actions: <Widget>[
           IconButton(icon: Icon(Icons.list), onPressed: _pushSaved,),
         ],
